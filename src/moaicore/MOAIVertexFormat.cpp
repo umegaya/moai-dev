@@ -114,6 +114,48 @@ int MOAIVertexFormat::_declareUV ( lua_State* L ) {
 	return 0;
 }
 
+//----------------------------------------------------------------//
+/**	@name	declareWeightIndex
+ @text	Declare a vertex (bone) weight index.
+ 
+ @in		MOAIVertexFormat self
+ @in		number type			Data type of weight index. See OpenGL ES documentation.
+ @in		number size			Number of weight indices. See OpenGL ES documentation.
+ @out	nil
+ */
+int MOAIVertexFormat::_declareWeightIndex ( lua_State* L ) {
+	MOAI_LUA_SETUP ( MOAIVertexFormat, "UNNN" )
+	
+	u32 index			= state.GetValue < u32 >( 2, 1 ) - 1;
+	u32 type			= state.GetValue < u32 >( 3, 0 );
+	u32 size			= state.GetValue < u32 >( 4, 0 );
+	
+	self->DeclareAttribute ( index, type, size, ARRAY_WEIGHT_INDEX, false );
+	
+	return 0;
+}
+
+//----------------------------------------------------------------//
+/**	@name	declareWeightValue
+ @text	Declare a vertex (bone) weight value.
+ 
+ @in		MOAIVertexFormat self
+ @in		number type			Data type of weight element. See OpenGL ES documentation.
+ @in		number size			Number of weight elements. See OpenGL ES documentation.
+ @out	nil
+ */
+int MOAIVertexFormat::_declareWeightValue ( lua_State* L ) {
+	MOAI_LUA_SETUP ( MOAIVertexFormat, "UNNN" )
+	
+	u32 index			= state.GetValue < u32 >( 2, 1 ) - 1;
+	u32 type			= state.GetValue < u32 >( 3, 0 );
+	u32 size			= state.GetValue < u32 >( 4, 0 );
+	
+	self->DeclareAttribute ( index, type, size, ARRAY_WEIGHT_VALUE, false );
+	
+	return 0;
+}
+
 //================================================================//
 // MOAIVertexFormat
 //================================================================//
@@ -163,6 +205,8 @@ void MOAIVertexFormat::BindFixed ( void* buffer ) const {
 				case GL_VERTEX_ARRAY:
 					glVertexPointer ( attr.mSize, attr.mType, this->mVertexSize, addr );
 					break;
+				// TODO: Weights using 1.1 matrix palette extension?
+					
 				default:
 					break;
 			}
@@ -339,6 +383,8 @@ void MOAIVertexFormat::RegisterLuaFuncs ( MOAILuaState& state ) {
 		{ "declareCoord",			_declareCoord },
 		{ "declareNormal",			_declareNormal },
 		{ "declareUV",				_declareUV },
+		{ "declareWeightIndex",		_declareWeightIndex },
+		{ "declareWeightValue",		_declareWeightValue },
 		{ NULL, NULL }
 	};
 	luaL_register ( state, 0, regTable );

@@ -19,6 +19,7 @@
 #include <moaicore/MOAISurfaceSampler2D.h>
 #include <moaicore/MOAITexture.h>
 #include <moaicore/MOAITextureBase.h>
+#include <moaicore/MOAITransformList.h>
 
 //================================================================//
 // local
@@ -553,6 +554,26 @@ int MOAIProp::_setShader ( lua_State* L ) {
 	return 0;
 }
 
+
+//----------------------------------------------------------------//
+/**	@name	setSkeleton
+	@text	Sets or clears the set of transforms that are used to control the "bones"
+			of a prop. The actual use of this is intended to be used in a vertex shader
+			to perform skinning.
+
+	@in		MOAIProp self
+	@opt	MOAITransformList skeleton The list of transforms to use (or nil to clear it).
+	@out	nil
+*/
+int MOAIProp::_setSkeleton( lua_State *L ) {
+	MOAI_LUA_SETUP( MOAIProp, "U" )
+	
+	MOAITransformList *skeleton = state.GetLuaObject < MOAITransformList >( 2, true );
+	self->SetDependentMember < MOAITransformList >( self->mSkeleton, skeleton );
+	
+	return 0;
+}
+
 //----------------------------------------------------------------//
 /**	@name	setTexture
 	@text	Set or load a texture for this prop. The prop's texture will
@@ -705,6 +726,10 @@ void MOAIProp::Draw ( int subPrimID ) {
 	}
 	else {
 		gfxDevice.SetUVTransform ();
+	}
+	
+	if ( this->mSkeleton ) {
+		gfxDevice.SetVertexTransformList( (MOAITransformList*)this->mSkeleton );
 	}
 	
 	if ( this->mGrid ) {
@@ -1039,6 +1064,7 @@ MOAIProp::~MOAIProp () {
 	
 	this->mDeck.Set ( *this, 0 );
 	this->mRemapper.Set ( *this, 0 );
+	this->mSkeleton.Set ( *this, 0 );
 	this->mGrid.Set ( *this, 0 );
 	this->mShader.Set ( *this, 0 );
 	this->mTexture.Set ( *this, 0 );
@@ -1137,6 +1163,7 @@ void MOAIProp::RegisterLuaFuncs ( MOAILuaState& state ) {
 		{ "setRemapper",		_setRemapper },
 		{ "setScissorRect",		_setScissorRect },
 		{ "setShader",			_setShader },
+		{ "setSkeleton",		_setSkeleton },
 		{ "setTexture",			_setTexture },
 		{ "setUVTransform",		_setUVTransform },
 		{ "setVisible",			_setVisible },

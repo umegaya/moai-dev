@@ -17,6 +17,7 @@ class MOAIShader;
 class MOAITextureBase;
 class MOAIVertexFormat;
 class MOAIViewport;
+class MOAITransformList;
 
 //================================================================//
 // MOAIGfxDeleter
@@ -315,6 +316,7 @@ public:
 	void					SetVertexTransform		( u32 id );
 	void					SetVertexTransform		( u32 id, const USAffine3D& transform );
 	void					SetVertexTransform		( u32 id, const USMatrix4x4& transform );
+	void					SetVertexTransformList  ( MOAITransformList* transforms );
 	
 	void					SetViewport				();
 	void					SetViewport				( USRect rect );

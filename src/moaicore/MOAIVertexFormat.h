@@ -48,6 +48,8 @@ public:
 		ARRAY_NORMAL,
 		ARRAY_TEX_COORD,
 		ARRAY_VERTEX,
+		ARRAY_WEIGHT_INDEX,
+		ARRAY_WEIGHT_VALUE,
 		TOTAL_ARRAY_TYPES,
 	};
 
@@ -69,6 +71,8 @@ private:
 	static int		_declareCoord					( lua_State* L );
 	static int		_declareNormal					( lua_State* L );
 	static int		_declareUV						( lua_State* L );
+	static int		_declareWeightIndex				( lua_State* L );
+	static int		_declareWeightValue				( lua_State* L );
 	
 	//----------------------------------------------------------------//
 	bool			Bind							( void* buffer ) const;

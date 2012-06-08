@@ -113,6 +113,54 @@ int MOAITransform::_addScl ( lua_State* L ) {
 }
 
 //----------------------------------------------------------------//
+/**	@name	getInvBindPose
+	@text	Returns the transform's current "inverse bind pose" used in
+			skeletal animation. If this hasn't been changed, it will return
+			the identity matrix. Note that this is a 4x4 matrix.
+ 
+ @in		MOAITransform self
+ @out		number c0r0
+ @out		number c1r0
+ @out		number c2r0
+ @out		number c3r0
+ @out		number c0r1
+ @out		number c1r1
+ @out		number c2r1
+ @out		number c3r1
+ @out		number c0r2
+ @out		number c1r2
+ @out		number c2r2
+ @out		number c3r2
+ @out		number c0r3
+ @out		number c1r3
+ @out		number c2r3
+ @out		number c3r3
+*/
+int MOAITransform::_getInvBindPose( lua_State *L ) {
+	MOAI_LUA_SETUP ( MOAITransform, "U" )
+
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C0_R0]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C1_R0]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C2_R0]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C3_R0]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C0_R1]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C1_R1]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C2_R1]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C3_R1]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C0_R2]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C1_R2]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C2_R2]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C3_R2]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C0_R3]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C1_R3]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C2_R3]);
+	lua_pushnumber(state, self->mInvBindPose.m[USMatrix4x4::C3_R3]);
+
+	return 16;
+}
+
+
+//----------------------------------------------------------------//
 /**	@name	getLoc
 	@text	Returns the transform's current location.
 	
@@ -732,6 +780,54 @@ int MOAITransform::_seekScl ( lua_State* L ) {
 	return 0;
 }
 
+
+//----------------------------------------------------------------//
+/**	@name	setInvBindPose
+	@text	Sets the "inverse bind pose" matrix used if this is being used as a skeleton's bone.
+ 
+	@in		MOAITransform self
+	@opt	number x				Default value is 0.
+	@opt	number y				Default value is 0.
+	@opt	number z				Default value is 0.
+	@out	nil
+ */
+int MOAITransform::_setInvBindPose( lua_State *L ) {
+	MOAI_LUA_SETUP ( MOAITransform, "U" )
+
+	int top = state.GetTop();
+	if( top == 17 ) {
+		self->mInvBindPose.m[USMatrix4x4::C0_R0] = state.GetValue<float>(2, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C1_R0] = state.GetValue<float>(3, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C2_R0] = state.GetValue<float>(4, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C3_R0] = state.GetValue<float>(5, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C0_R1] = state.GetValue<float>(6, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C1_R1] = state.GetValue<float>(7, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C2_R1] = state.GetValue<float>(8, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C3_R1] = state.GetValue<float>(9, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C0_R2] = state.GetValue<float>(10, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C1_R2] = state.GetValue<float>(11, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C2_R2] = state.GetValue<float>(12, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C3_R2] = state.GetValue<float>(13, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C0_R3] = state.GetValue<float>(14, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C1_R3] = state.GetValue<float>(15, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C2_R3] = state.GetValue<float>(16, 0.0f);
+		self->mInvBindPose.m[USMatrix4x4::C3_R3] = state.GetValue<float>(17, 0.0f);
+	}
+	else if( state.GetValue<bool>(2, false) ) {
+		self->BuildTransforms();
+		self->mInvBindPose.Init(self->GetLocalToWorldMtx());
+		self->mInvBindPose.Inverse();
+		self->mInvBindPose.Transpose();
+	}
+	else if( state.IsType(2, LUA_TNIL) || state.IsType(2, LUA_TBOOLEAN) ) {
+		self->mInvBindPose.Ident();
+	}
+	
+	return 0;
+}
+
+
+
 //----------------------------------------------------------------//
 /**	@name	setLoc
 	@text	Sets the transform's location.
@@ -1102,6 +1198,13 @@ USAffine3D MOAITransform::GetBillboardMtx ( const USAffine3D& faceCameraMtx ) co
 }
 
 //----------------------------------------------------------------//
+USMatrix4x4& MOAITransform::GetInvBindPoseMtx ()  {
+	
+	return this->mInvBindPose;
+}
+
+
+//----------------------------------------------------------------//
 const USAffine3D& MOAITransform::GetLocalToWorldMtx () const {
 
 	return this->mLocalToWorldMtx;
@@ -1125,6 +1228,8 @@ MOAITransform::MOAITransform () :
 	mLoc ( 0.0f, 0.0f, 0.0f ),
 	mScale ( 1.0f, 1.0f, 1.0f ),
 	mRot ( 0.0f, 0.0f, 0.0f ) {
+		
+	mInvBindPose.Ident();
 	
 	RTTI_BEGIN
 		RTTI_EXTEND ( MOAITransformBase )
@@ -1175,6 +1280,7 @@ void MOAITransform::RegisterLuaFuncs ( MOAILuaState& state ) {
 		{ "addPiv",				_addPiv },
 		{ "addRot",				_addRot },
 		{ "addScl",				_addScl },
+		{ "getInvBindPose",		_getInvBindPose },
 		{ "getLoc",				_getLoc },
 		{ "getPiv",				_getPiv },
 		{ "getRot",				_getRot },
@@ -1191,6 +1297,7 @@ void MOAITransform::RegisterLuaFuncs ( MOAILuaState& state ) {
 		{ "seekPiv",			_seekPiv },
 		{ "seekRot",			_seekRot },
 		{ "seekScl",			_seekScl },
+		{ "setInvBindPose",		_setInvBindPose },
 		{ "setLoc",				_setLoc },
 		{ "setPiv",				_setPiv },
 		{ "setRot",				_setRot },

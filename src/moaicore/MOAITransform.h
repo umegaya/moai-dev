@@ -53,12 +53,15 @@ protected:
 	USVec3D			mLoc;
 	USVec3D			mScale;
 	USVec3D			mRot;		// Euler angles, in degrees
+	
+	USMatrix4x4		mInvBindPose;
 
 	//----------------------------------------------------------------//
 	static int	_addLoc			( lua_State* L );
 	static int	_addPiv			( lua_State* L );
 	static int	_addRot			( lua_State* L );
 	static int	_addScl			( lua_State* L );
+	static int  _getInvBindPose ( lua_State* L );
 	static int	_getLoc			( lua_State* L );
 	static int	_getPiv			( lua_State* L );
 	static int	_getRot			( lua_State* L );
@@ -74,6 +77,7 @@ protected:
 	static int	_seekPiv		( lua_State* L );
 	static int	_seekRot		( lua_State* L );
 	static int	_seekScl		( lua_State* L );
+	static int	_setInvBindPose ( lua_State* L );
 	static int	_setLoc			( lua_State* L );
 	static int	_setParent		( lua_State* L );
 	static int	_setPiv			( lua_State* L );
@@ -127,10 +131,11 @@ public:
 	GET_SET ( float, XLoc, mLoc.mX )
 	GET_SET ( float, YLoc, mLoc.mY )
 	GET_SET ( float, ZLoc, mLoc.mZ )
-	
+		
 	//----------------------------------------------------------------//
 	bool					ApplyAttrOp					( u32 attrID, MOAIAttrOp& attrOp, u32 op );
 	USAffine3D				GetBillboardMtx				( const USAffine3D& faceCameraMtx ) const;
+	USMatrix4x4&			GetInvBindPoseMtx			();
 	const USAffine3D&		GetLocalToWorldMtx			() const;
 	const USAffine3D&		GetWorldToLocalMtx			() const;
 							MOAITransform				();
