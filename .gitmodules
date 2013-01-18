@@ -1,0 +1,3 @@
+[submodule "3rdparty/yue"]
+	path = 3rdparty/yue
+	url = https://github.com/umegaya/yue.git
