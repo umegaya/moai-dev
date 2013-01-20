@@ -196,7 +196,7 @@
 	
 	fr $out_dir/project/$package_path/MoaiView.java @RUN_COMMAND@ "$run_command"
 
-	cp -f host-source/init.lua $out_dir/project/assets/init.lua
+	cp -f host-source/*.lua $out_dir/project/assets/
 	
 	for (( i=0; i<${#src_dirs[@]}; i++ )); do
 #		rsync -r --exclude=.svn --exclude=.DS_Store --exclude=*.bat --exclude=*.sh ${src_dirs[$i]}/. $out_dir/project/assets/${dest_dirs[$i]}
@@ -222,6 +222,6 @@
 			$install_cmd
 			adb shell am start -a android.intent.action.MAIN -n $package/$package.MoaiActivity
 			adb logcat -c
-			adb logcat MoaiLog:V AndroidRuntime:E *:S
+			adb logcat MoaiLog:V yue:V AndroidRuntime:E *:S
 		popd > /dev/null
 	fi
