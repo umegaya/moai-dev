@@ -323,7 +323,14 @@
 		REGISTER_LUA_CLASS ( MOAITapjoyAndroid );
 #endif
 
+#if defined(__USE_LUAJIT__)
+	#if defined(__USE_YUE__)
+		extern int luaopen_libyue ( lua_State * );
+		luaopen_libyue ( MOAILuaRuntime::Get ().State () );
+	#endif
+#else
 		AKURunBytecode ( moai_lua, moai_lua_SIZE );
+#endif
 
 		inputQueue = new LockingQueue < InputEvent > ();
 	}
@@ -391,6 +398,16 @@
 		
 		JNI_RELEASE_CSTRING ( jfilename, filename );
 	}
+
+       extern "C" void Java_com_ziplinegames_moai_Moai_AKURunString ( JNIEnv* env, jclass obj, jstring jfilename ) {
+
+                JNI_GET_CSTRING ( jfilename, filename );
+
+                AKURunString ( filename );
+
+                JNI_RELEASE_CSTRING ( jfilename, filename );
+        }
+
 
 	//----------------------------------------------------------------//
 	extern "C" void Java_com_ziplinegames_moai_Moai_AKUSetConnectionType ( JNIEnv* env, jclass obj, jlong connectionType ) {
