@@ -4,6 +4,8 @@ Thumbs.db
 /vs2010/bin
 /vs2008/bin
 
+/xcode/libyue/libyue/*.log
+
 /ide/bin
 /ide/obj
 
