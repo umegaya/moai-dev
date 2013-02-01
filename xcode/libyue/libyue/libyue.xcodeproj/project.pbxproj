@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7846F02D16BB8FC000E0587E /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7846F02C16BB8FC000E0587E /* libluajit.a */; };
+		7846F02E16BB8FCF00E0587E /* libluajit.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7846F02C16BB8FC000E0587E /* libluajit.a */; };
 		78EFDCD516B7D8D90077E10A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78EFDCD416B7D8D90077E10A /* Foundation.framework */; };
 		78EFDFB616B7D91F0077E10A /* emittable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78EFDCEF16B7D91D0077E10A /* emittable.cpp */; };
 		78EFDFB716B7D91F0077E10A /* fabric.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78EFDCF616B7D91D0077E10A /* fabric.cpp */; };
@@ -55,12 +57,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				7846F02E16BB8FCF00E0587E /* libluajit.a in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7846F02C16BB8FC000E0587E /* libluajit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libluajit.a; path = libs/libluajit.a; sourceTree = "<group>"; };
 		78EFDCD116B7D8D90077E10A /* libyue.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libyue.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		78EFDCD416B7D8D90077E10A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		78EFDCE916B7D91D0077E10A /* build.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = build.py; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78EFDCD516B7D8D90077E10A /* Foundation.framework in Frameworks */,
+				7846F02D16BB8FC000E0587E /* libluajit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +221,7 @@
 		78EFDCC816B7D8D90077E10A = {
 			isa = PBXGroup;
 			children = (
+				7846F02C16BB8FC000E0587E /* libluajit.a */,
 				78EFE0AA16B88FB70077E10A /* build_luajit.patch */,
 				78EFE0A916B7DADC0077E10A /* build_luajit.sh */,
 				78EFDCE816B7D91D0077E10A /* src */,
@@ -758,6 +764,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../3rdparty/yue/src/ll/lua/exlib/luajit/src\"",
 					"\"$(SRCROOT)/../../../3rdparty/yue/src/ll/lua/exlib/luarocks/win32/lua5.1/bin\"",
+					"\"$(SRCROOT)/libs\"",
 				);
 				New_Setting = "";
 				OTHER_LDFLAGS = "";
@@ -777,6 +784,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../3rdparty/yue/src/ll/lua/exlib/luajit/src\"",
 					"\"$(SRCROOT)/../../../3rdparty/yue/src/ll/lua/exlib/luarocks/win32/lua5.1/bin\"",
+					"\"$(SRCROOT)/libs\"",
 				);
 				New_Setting = "";
 				OTHER_LDFLAGS = "";

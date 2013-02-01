@@ -5,8 +5,9 @@ DEVROOT=/Applications/Xcode.app/Contents/Developer
 MAC_VER=MacOSX10.8.sdk
 IOS_VER=iPhoneOS6.0.sdk
 SIM_VER=iPhoneSimulator6.0.sdk
+TARGET=libluajit.a
 
-if [ -e "$OUTDIR/libluajit-ios.a" ]; then
+if [ -e "$OUTDIR/$TARGET" ]; then
 	echo "luajit universal binary already has built. please remove manually for rebuild"
 	exit
 fi
@@ -51,6 +52,6 @@ $MAKE clean && $MAKE CC=cc CROSS=$CROSS HOST_CC="$HOST_CC" TARGET_SYS=iOS \
 	cp -p src/libluajit.a $OUTDIR/libluajit-i386.a && \
 # rollback patched files
 git checkout src/Makefile && \
-lipo -create -output $OUTDIR/libluajit-ios.a \
+lipo -create -output $OUTDIR/$TARGET \
 	$OUTDIR/libluajit-arm*.a $OUTDIR/libluajit-i386.a && \
 rm $OUTDIR/libluajit-arm*.a $OUTDIR/libluajit-i386.a
