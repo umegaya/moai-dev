@@ -50,6 +50,10 @@
 		665383F5160A7B65003D5529 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 665383F4160A7B65003D5529 /* libfacebook_ios_sdk.a */; };
 		665383F7160A8466003D5529 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 665383F6160A8466003D5529 /* MessageUI.framework */; };
 		7846F02F16BB8FF000E0587E /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78EFE0C716B8B6A50077E10A /* libluajit.a */; };
+		78A75E4B16C0D23500C08E82 /* init.lua in Resources */ = {isa = PBXBuildFile; fileRef = 78A75E4716C0D23500C08E82 /* init.lua */; };
+		78A75E4C16C0D23500C08E82 /* moai-target in Resources */ = {isa = PBXBuildFile; fileRef = 78A75E4816C0D23500C08E82 /* moai-target */; };
+		78A75E4D16C0D23500C08E82 /* moai.lua in Resources */ = {isa = PBXBuildFile; fileRef = 78A75E4916C0D23500C08E82 /* moai.lua */; };
+		78A75E4E16C0D23500C08E82 /* yue.lua in Resources */ = {isa = PBXBuildFile; fileRef = 78A75E4A16C0D23500C08E82 /* yue.lua */; };
 		78EFE0AD16B8AD050077E10A /* libyue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78EFDCE716B7D8DA0077E10A /* libyue.a */; };
 		78EFE0AE16B8AD8F0077E10A /* libmoai-ios-luaext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03CC90C113B3C39D00B2724C /* libmoai-ios-luaext.a */; };
 		CD464CE0147259EA00501E4E /* libmoai-ios-zlcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD04AF1214725736009C20E5 /* libmoai-ios-zlcore.a */; };
@@ -535,6 +539,10 @@
 		665383F2160A798F003D5529 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = "../../3rdparty/facebookiOS-3.0.6.b/FacebookSDKResources.bundle"; sourceTree = "<group>"; };
 		665383F4160A7B65003D5529 /* libfacebook_ios_sdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfacebook_ios_sdk.a; path = "../../3rdparty/facebookiOS-3.0.6.b/libfacebook_ios_sdk.a"; sourceTree = "<group>"; };
 		665383F6160A8466003D5529 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		78A75E4716C0D23500C08E82 /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
+		78A75E4816C0D23500C08E82 /* moai-target */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "moai-target"; sourceTree = "<group>"; };
+		78A75E4916C0D23500C08E82 /* moai.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = moai.lua; sourceTree = "<group>"; };
+		78A75E4A16C0D23500C08E82 /* yue.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = yue.lua; sourceTree = "<group>"; };
 		78EFDCE216B7D8D90077E10A /* libyue.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libyue.xcodeproj; path = ../libyue/libyue/libyue.xcodeproj; sourceTree = "<group>"; };
 		CD508AA2155E3AF90002FC3B /* moai-fmod-ex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "moai-fmod-ex.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7C73AC13B95516006CFA19 /* ParticlePresets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParticlePresets.cpp; path = ../../src/hosts/ParticlePresets.cpp; sourceTree = SOURCE_ROOT; };
@@ -729,6 +737,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				78A75E4616C0D23500C08E82 /* bootstrap */,
 				78EFDCE216B7D8D90077E10A /* libyue.xcodeproj */,
 				665383F6160A8466003D5529 /* MessageUI.framework */,
 				665383F4160A7B65003D5529 /* libfacebook_ios_sdk.a */,
@@ -790,6 +799,17 @@
 				079530CD1447A0FF00143A72 /* MediaPlayer.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		78A75E4616C0D23500C08E82 /* bootstrap */ = {
+			isa = PBXGroup;
+			children = (
+				78A75E4716C0D23500C08E82 /* init.lua */,
+				78A75E4816C0D23500C08E82 /* moai-target */,
+				78A75E4916C0D23500C08E82 /* moai.lua */,
+				78A75E4A16C0D23500C08E82 /* yue.lua */,
+			);
+			path = bootstrap;
 			sourceTree = "<group>";
 		};
 		78EFDCE316B7D8D90077E10A /* Products */ = {
@@ -1143,6 +1163,10 @@
 				E92D4809153CA7D800CB1E8A /* TJCVGTableViewCell.xib in Resources */,
 				E92D480A153CA7D800CB1E8A /* TJCVGView.xib in Resources */,
 				665383F3160A798F003D5529 /* FacebookSDKResources.bundle in Resources */,
+				78A75E4B16C0D23500C08E82 /* init.lua in Resources */,
+				78A75E4C16C0D23500C08E82 /* moai-target in Resources */,
+				78A75E4D16C0D23500C08E82 /* moai.lua in Resources */,
+				78A75E4E16C0D23500C08E82 /* yue.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
