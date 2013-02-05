@@ -70,7 +70,7 @@
 		AKUSetWorkingDirectory ([ luaFolder UTF8String ]);
 		
 		// run scripts
-        [ mMoaiView run:@"init.lua" ];
+        [ mMoaiView run:@"bootstrap/init.lua" ];
 		[ mMoaiView run:@"main.lua" ];
 		
         // check to see if the app was lanuched from a remote notification
