@@ -160,7 +160,11 @@ namespace MoaiInputDeviceSensorID {
 		if ( self ) {
 		}
 		return self;
-	}
+    }
+
+    void moai_nanosleep(int sec, int nsec) {
+        [NSThread sleepForTimeInterval : (sec + (nsec / (1000 * 1000 * 1000)))];
+    }
 	
 	//----------------------------------------------------------------//
 	-( void ) moaiInit :( UIApplication* )application {
@@ -172,6 +176,7 @@ namespace MoaiInputDeviceSensorID {
 		AKUExtLoadLuacurl ();
 		AKUExtLoadLuacrypto ();
 		AKUExtLoadLuasocket ();
+        AKUExtLoadYue(moai_nanosleep);
 		
 		#ifdef USE_UNTZ
 			AKUUntzInit ();

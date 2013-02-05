@@ -10,6 +10,7 @@ extern "C" {
 	extern int luaopen_luacurl			( lua_State *L );
 	extern int luaopen_luasql_sqlite3	( lua_State *L );
 	extern int luapreload_fullluasocket ( lua_State *L );
+	extern int luaopen_libyue			( lua_State *L );
 }
 
 //================================================================//
@@ -22,6 +23,18 @@ void AKUExtLoadLuacrypto () {
 	lua_State* state = AKUGetLuaState ();
 	luaopen_crypto ( state );
 }
+
+//----------------------------------------------------------------//
+void AKUExtLoadYue (void (*sleeper)(int, int)) {
+	
+	lua_State* state = AKUGetLuaState ();
+	//for unknown reason, direct call of nanosleep never returns in initialization process of yue.
+	//so I will call NSThread sleepForTimeInterval via callback pointer given from moai.
+	extern void set_sleeper(void (*fn)(int, int));
+	set_sleeper(sleeper);
+	luaopen_libyue ( state );
+}
+
 
 //----------------------------------------------------------------//
 void AKUExtLoadLuacurl () {
