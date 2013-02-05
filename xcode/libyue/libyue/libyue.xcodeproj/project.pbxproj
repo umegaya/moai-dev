@@ -767,6 +767,7 @@
 					"\"$(SRCROOT)/libs\"",
 				);
 				New_Setting = "";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = yue;
 				SKIP_INSTALL = YES;
@@ -787,6 +788,7 @@
 					"\"$(SRCROOT)/libs\"",
 				);
 				New_Setting = "";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = yue;
 				SKIP_INSTALL = YES;
