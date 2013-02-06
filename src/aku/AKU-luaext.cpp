@@ -25,16 +25,11 @@ void AKUExtLoadLuacrypto () {
 }
 
 //----------------------------------------------------------------//
-void AKUExtLoadYue (void (*sleeper)(int, int)) {
+void AKUExtLoadYue () {
 	
 	lua_State* state = AKUGetLuaState ();
-	//for unknown reason, direct call of nanosleep never returns in initialization process of yue.
-	//so I will call NSThread sleepForTimeInterval via callback pointer given from moai.
-	extern void set_sleeper(void (*fn)(int, int));
-	set_sleeper(sleeper);
 	luaopen_libyue ( state );
 }
-
 
 //----------------------------------------------------------------//
 void AKUExtLoadLuacurl () {
