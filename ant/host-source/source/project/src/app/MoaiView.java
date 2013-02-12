@@ -46,7 +46,7 @@ public class MoaiView extends GLSurfaceView {
 		// setting to false, and may have to make other adjustments to properly
 		// handle orientation changes.
 		mForceLandscape = false;
-		mForcePortrait = true
+		mForcePortrait = true;
 		
 		setScreenDimensions ( width, height );
 		Moai.setScreenSize ( mWidth, mHeight );

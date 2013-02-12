@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7846F02D16BB8FC000E0587E /* libluajit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7846F02C16BB8FC000E0587E /* libluajit.a */; };
 		7846F02E16BB8FCF00E0587E /* libluajit.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7846F02C16BB8FC000E0587E /* libluajit.a */; };
+		78BEFC9516C9FD7C00199AFD /* constant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78BEFC9316C9FD7C00199AFD /* constant.cpp */; };
+		78BEFC9616C9FD7C00199AFD /* rpcerrors.inc in Sources */ = {isa = PBXBuildFile; fileRef = 78BEFC9416C9FD7C00199AFD /* rpcerrors.inc */; };
 		78EFDCD516B7D8D90077E10A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78EFDCD416B7D8D90077E10A /* Foundation.framework */; };
 		78EFDFB616B7D91F0077E10A /* emittable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78EFDCEF16B7D91D0077E10A /* emittable.cpp */; };
 		78EFDFB716B7D91F0077E10A /* fabric.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 78EFDCF616B7D91D0077E10A /* fabric.cpp */; };
@@ -65,6 +67,8 @@
 
 /* Begin PBXFileReference section */
 		7846F02C16BB8FC000E0587E /* libluajit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libluajit.a; path = libs/libluajit.a; sourceTree = "<group>"; };
+		78BEFC9316C9FD7C00199AFD /* constant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = constant.cpp; sourceTree = "<group>"; };
+		78BEFC9416C9FD7C00199AFD /* rpcerrors.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = rpcerrors.inc; sourceTree = "<group>"; };
 		78EFDCD116B7D8D90077E10A /* libyue.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libyue.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		78EFDCD416B7D8D90077E10A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		78EFDCE916B7D91D0077E10A /* build.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = build.py; sourceTree = "<group>"; };
@@ -250,6 +254,8 @@
 		78EFDCE816B7D91D0077E10A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				78BEFC9316C9FD7C00199AFD /* constant.cpp */,
+				78BEFC9416C9FD7C00199AFD /* rpcerrors.inc */,
 				78EFDCE916B7D91D0077E10A /* build.py */,
 				78EFDCEA16B7D91D0077E10A /* cap */,
 				78EFDCEE16B7D91D0077E10A /* constant.h */,
@@ -679,6 +685,8 @@
 				78EFE0A516B7D91F0077E10A /* thread.cpp in Sources */,
 				78EFE0A616B7D91F0077E10A /* util.cpp in Sources */,
 				78EFE0A716B7D91F0077E10A /* yue.cpp in Sources */,
+				78BEFC9516C9FD7C00199AFD /* constant.cpp in Sources */,
+				78BEFC9616C9FD7C00199AFD /* rpcerrors.inc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
