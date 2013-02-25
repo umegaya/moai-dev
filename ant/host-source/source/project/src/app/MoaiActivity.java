@@ -122,6 +122,8 @@ public class MoaiActivity extends Activity {
 		enableAccelerometerEvents ( false );
 		enableLocationEvents ( false );
 		
+		MoaiKeyboard.setMainView ( mMoaiView );
+		
 		LinearLayoutIMETrap con = MoaiKeyboard.getContainer ();
 		setContentView ( con );
 		con.addView ( mMoaiView );
