@@ -162,7 +162,7 @@ public class Moai {
 	protected static native void	AKURunScript 					( String filename );
 	protected static native void	AKUSetConnectionType 			( long connectionType );
 	protected static native void 	AKUSetContext 					( int contextId );
-	protected static native void 	AKUSetDeviceProperties 			( String appName, String appId, String appVersion, String abi, String devBrand, String devName, String devManufacturer, String devModel, String devProduct, int numProcessors, String osBrand, String osVersion, String udid );
+	protected static native void 	AKUSetDeviceProperties 			( String appName, String appId, String appVersion, String abi, String devBrand, String devName, String devManufacturer, String devModel, String devProduct, int numProcessors, String osBrand, String osVersion, String udid, String screenDpi );
 	protected static native void 	AKUSetDocumentDirectory 		( String path );
 	protected static native void 	AKUSetInputConfigurationName	( String name );
 	protected static native void 	AKUSetInputDevice		 		( int deviceId, String name );
@@ -339,8 +339,13 @@ public class Moai {
 			
 				udid = "UNKNOWN";
 			}
+			
+			String screenDpi = "" + getDensityDpi ();
+			if ( screenDpi == null ) {
+				screenDpi = "UNKNOWN";
+			}
 		
-			AKUSetDeviceProperties ( appName, appId, appVersion, Build.CPU_ABI, Build.BRAND, Build.DEVICE, Build.MANUFACTURER, Build.MODEL, Build.PRODUCT, Runtime.getRuntime ().availableProcessors (), "Android", Build.VERSION.RELEASE, udid );
+			AKUSetDeviceProperties ( appName, appId, appVersion, Build.CPU_ABI, Build.BRAND, Build.DEVICE, Build.MANUFACTURER, Build.MODEL, Build.PRODUCT, Runtime.getRuntime ().availableProcessors (), "Android", Build.VERSION.RELEASE, udid, screenDpi );
 		}
 	}	
 
@@ -586,6 +591,11 @@ public class Moai {
 		return myHeight;
 	}
 	
+	//----------------------------------------------------------------//
+	public static int getDensityDpi () {
+		return sActivity.getResources ().getDisplayMetrics ().densityDpi;
+	}
+
 	//----------------------------------------------------------------//
 	public static long getUTCTime () {
 		
