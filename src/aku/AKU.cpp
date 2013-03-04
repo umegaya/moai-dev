@@ -506,8 +506,12 @@ void AKUSoftReleaseGfxResources ( int age ) {
 }
 
 //----------------------------------------------------------------//
+extern "C" {
+	extern void yue_poll();
+}
 void AKUUpdate () {
 
+	yue_poll();
 	MOAISim::Get ().Update ();
 }
 

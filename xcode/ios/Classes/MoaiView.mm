@@ -160,8 +160,8 @@ namespace MoaiInputDeviceSensorID {
 		if ( self ) {
 		}
 		return self;
-	}
-	
+    }
+
 	//----------------------------------------------------------------//
 	-( void ) moaiInit :( UIApplication* )application {
 	
@@ -172,6 +172,7 @@ namespace MoaiInputDeviceSensorID {
 		AKUExtLoadLuacurl ();
 		AKUExtLoadLuacrypto ();
 		AKUExtLoadLuasocket ();
+        AKUExtLoadYue();
 		
 		#ifdef USE_UNTZ
 			AKUUntzInit ();

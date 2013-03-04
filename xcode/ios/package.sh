@@ -5,6 +5,13 @@ echo $PWD
 target_file=moai-target
 target_dir=lua
 
+if [ $# -ge 1 ]; then
+    echo "Use another target file $1"
+    target_file=$1
+fi
+
+echo "Use target file $1"
+
 PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$PATH
 
 if [ ! -f $target_file ]; then

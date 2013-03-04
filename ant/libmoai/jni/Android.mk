@@ -39,7 +39,7 @@
 	LOCAL_MODULE 	:= moai
 	LOCAL_ARM_MODE 	:= $(MY_ARM_MODE)
 	LOCAL_LDLIBS 	:= -llog -lGLESv1_CM -lGLESv2 crypto/libs/$(TARGET_ARCH_ABI)/libcrypto.a ../obj/local/$(TARGET_ARCH_ABI)/libcares.a
-	LOCAL_CFLAGS	:= $(DISABLE_ADCOLONY) $(DISABLE_BILLING) $(DISABLE_CHARTBOOST) $(DISABLE_CRITTERCISM) $(DISABLE_FACEBOOK) $(DISABLE_NOTIFICATIONS) $(DISABLE_TAPJOY)
+	LOCAL_CFLAGS	:= $(DISABLE_ADCOLONY) $(DISABLE_BILLING) $(DISABLE_CHARTBOOST) $(DISABLE_CRITTERCISM) $(DISABLE_FACEBOOK) $(DISABLE_NOTIFICATIONS) $(DISABLE_TAPJOY) -D__USE_LUAJIT__ -D__USE_YUE__
 	
 	ifeq ($(USE_FMOD),true)
 		LOCAL_CFLAGS	+= -DUSE_FMOD
@@ -89,7 +89,7 @@
 	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/jansson-2.1/src
 	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/jpeg-8c
 	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/lpng140
-	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/lua-5.1.3/src
+	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/yue/src/ll/lua/exlib/luajit/src
 	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/luacrypto-0.2.0/src
 	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/luacurl-1.2.1
 	MY_HEADER_SEARCH_PATHS += $(MY_MOAI_ROOT)/3rdparty/luafilesystem-1.5.0/src
@@ -156,7 +156,7 @@
 	LOCAL_STATIC_LIBRARIES += libfreetype
 	LOCAL_STATIC_LIBRARIES += libjpg
 	LOCAL_STATIC_LIBRARIES += libjson
-	LOCAL_STATIC_LIBRARIES += liblua
+	LOCAL_STATIC_LIBRARIES += libyue
 	LOCAL_STATIC_LIBRARIES += libpng
 	LOCAL_STATIC_LIBRARIES += libsfmt
 	LOCAL_STATIC_LIBRARIES += libsqlite
@@ -179,7 +179,8 @@
 	include freetype/Android.mk
 	include jpg/Android.mk
 	include json/Android.mk
-	include lua/Android.mk
+	include $(MY_MOAI_ROOT)/3rdparty/yue/src/jni/Android.mk
+	LOCAL_PATH := $(ORIGINAL_LOCAL_PATH)
 	include moaiext-android/Android.mk
 	include moaiext-luaext/Android.mk
 	

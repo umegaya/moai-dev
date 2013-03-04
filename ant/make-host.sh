@@ -159,7 +159,7 @@
 
 #	rsync -r --exclude=.svn --exclude=.DS_Store --exclude=src/ --exclude=external/ host-source/source/. $new_host_dir/host-source
 	pushd host-source/source > /dev/null
-		find . -name ".?*" -type d -prune -o -name "src" -type d -prune -o -name "external" -type d -prune -o -type f -print0 | cpio -pmd0 --quiet $new_host_dir/host-source
+		find -L . -name ".?*" -type d -prune -o -name "src" -type d -prune -o -name "external" -type d -prune -o -type f -print0 | cpio -L -pmd0 --quiet $new_host_dir/host-source
 	popd > /dev/null
 
 	mkdir -p $new_host_dir/host-source/project/src/com/ziplinegames/moai

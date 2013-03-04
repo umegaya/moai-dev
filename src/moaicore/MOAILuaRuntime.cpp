@@ -10,7 +10,11 @@
 #include <moaicore/MOAILuaRef.h>
 #include <moaicore/MOAILuaState-impl.h>
 
+#if defined(__USE_LUAJIT__)
+#include <lua.h>
+#else
 #include <lstate.h>
+#endif
 
 #define DUMP_FORMAT "%p <%s> %s"
 
@@ -22,7 +26,9 @@ typedef STLSet < struct Table* > TableSet;
 
 //----------------------------------------------------------------//
 static void _dumpType ( lua_State* L, int idx, const char *name, bool verbose, TableSet& foundTables ) {
-
+#if defined(__USE_LUAJIT__)
+	USLog::Print ( "dumpType\n" );
+#else
 	MOAILuaState state ( L );
 
 	const char *format = DUMP_FORMAT;
@@ -138,11 +144,16 @@ static void _dumpType ( lua_State* L, int idx, const char *name, bool verbose, T
 	}
 
 	USLog::Print ( "\n" );
+#endif
 }
 
 //----------------------------------------------------------------//
+#if defined(__USE_LUAJIT__)
+static void _dumpTypeByAddress ( lua_State* L, void* tvalue, const char *name, bool verbose, TableSet& foundTables ) {
+	USLog::Print ( "_dumpTypeByAddress\n" );
+}
+#else
 static void _dumpTypeByAddress ( lua_State* L, TValue* tvalue, const char *name, bool verbose, TableSet& foundTables ) {
-
 	MOAILuaState state ( L );
 	
 	lua_lock ( L );
@@ -153,6 +164,7 @@ static void _dumpTypeByAddress ( lua_State* L, TValue* tvalue, const char *name,
 	_dumpType ( L, -1, name, verbose, foundTables );
 	lua_pop ( L, 1 );
 }
+#endif
 
 //================================================================//
 // lua
@@ -245,7 +257,9 @@ static int _dump ( lua_State* L ) {
 
 //----------------------------------------------------------------//
 static int _dumpStack ( lua_State* L ) {
-
+#if defined(__USE_LUAJIT__)
+	USLog::Print ( "_dumpStack\n" );
+#else
 	MOAILuaState state ( L );
 
 	bool verbose = state.GetValue < bool >( 1, true );
@@ -257,6 +271,7 @@ static int _dumpStack ( lua_State* L ) {
 		USLog::Print ( "stack [ %d ] ", idx++ );
 		_dumpTypeByAddress ( state, tvalue, "", verbose, foundTables );
 	}
+#endif
 	return 0;
 }
 
@@ -568,7 +583,11 @@ MOAILuaStateHandle MOAILuaRuntime::Open () {
 	}
 
 	// open the main state
+#if defined(__USE_LUAJIT__)
+	this->mMainState = luaL_newstate ();
+#else
 	this->mMainState = lua_newstate ( _tracking_alloc, NULL );
+#endif
 	lua_atpanic ( this->mMainState, &_panic );
 
 	// set up the ref tables

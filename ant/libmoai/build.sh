@@ -215,6 +215,11 @@
 		sed -i.backup s%@USE_UNTZ@%"$use_untz"%g OptionalComponentsDefined.mk
 		rm -f OptionalComponentsDefined.mk.backup
 	popd > /dev/null
+
+	# prepare for build yue
+	pushd jni/yue > /dev/null
+		bash prebuild.sh
+	popd > /dev/null
 	
 	# build libcrypto
 	pushd jni/crypto > /dev/null

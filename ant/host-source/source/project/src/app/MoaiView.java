@@ -25,6 +25,7 @@ import com.ziplinegames.moai.*;
 public class MoaiView extends GLSurfaceView {
 
 	private boolean		mForceLandscape;
+	private boolean		mForcePortrait;
 	private Handler		mHandler;
 	private int 		mHeight;
 	private Runnable	mUpdateRunnable;
@@ -45,7 +46,8 @@ public class MoaiView extends GLSurfaceView {
 		// multiple orientations, you'll have to edit the manfifest, set this
 		// setting to false, and may have to make other adjustments to properly
 		// handle orientation changes.
-		mForceLandscape = true;
+		mForceLandscape = false;
+		mForcePortrait = true;
 		
 		setScreenDimensions ( width, height );
 		Moai.setScreenSize ( mWidth, mHeight );
@@ -181,8 +183,11 @@ public class MoaiView extends GLSurfaceView {
 			mWidth = height;
 			mHeight = width;
 		}
-		else {
-			
+		else if (mForcePortrait && ( width > height )) {
+			mWidth = height;
+			mHeight = width;
+		}
+		else {	
 			mWidth = width;
 			mHeight = height;
 		}

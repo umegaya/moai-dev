@@ -326,7 +326,14 @@
 		REGISTER_LUA_CLASS ( MOAITapjoyAndroid );
 #endif
 
+#if defined(__USE_LUAJIT__)
+	#if defined(__USE_YUE__)
+		extern int luaopen_libyue ( lua_State * );
+		luaopen_libyue ( MOAILuaRuntime::Get ().State () );
+	#endif
+#else
 		AKURunBytecode ( moai_lua, moai_lua_SIZE );
+#endif
 
 		inputQueue = new LockingQueue < InputEvent > ();
 	}
@@ -395,6 +402,16 @@
 		JNI_RELEASE_CSTRING ( jfilename, filename );
 	}
 
+       extern "C" void Java_com_ziplinegames_moai_Moai_AKURunString ( JNIEnv* env, jclass obj, jstring jfilename ) {
+
+                JNI_GET_CSTRING ( jfilename, filename );
+
+                AKURunString ( filename );
+
+                JNI_RELEASE_CSTRING ( jfilename, filename );
+        }
+
+
 	//----------------------------------------------------------------//
 	extern "C" void Java_com_ziplinegames_moai_Moai_AKUSetConnectionType ( JNIEnv* env, jclass obj, jlong connectionType ) {
 
@@ -408,7 +425,7 @@
 	}
 	
 	//----------------------------------------------------------------//
-	extern "C" void Java_com_ziplinegames_moai_Moai_AKUSetDeviceProperties ( JNIEnv* env, jclass obj, jstring jappName, jstring jappId, jstring jappVersion, jstring jabi, jstring jdevBrand, jstring jdevName, jstring jdevManufacturer, jstring jdevModel, jstring jdevProduct, jint jnumProcessors, jstring josBrand, jstring josVersion, jstring judid ) {
+	extern "C" void Java_com_ziplinegames_moai_Moai_AKUSetDeviceProperties ( JNIEnv* env, jclass obj, jstring jappName, jstring jappId, jstring jappVersion, jstring jabi, jstring jdevBrand, jstring jdevName, jstring jdevManufacturer, jstring jdevModel, jstring jdevProduct, jint jnumProcessors, jstring josBrand, jstring josVersion, jstring judid, jstring jscreenDpi ) {
 
 		JNI_GET_CSTRING ( jappName, appName );
 		JNI_GET_CSTRING ( jappId, appId );
@@ -422,6 +439,7 @@
 		JNI_GET_CSTRING ( josBrand, osBrand );
 		JNI_GET_CSTRING ( josVersion, osVersion );
 		JNI_GET_CSTRING ( judid, udid );
+		JNI_GET_CSTRING ( jscreenDpi, screenDpi );
 	
 		MOAIEnvironment& environment = MOAIEnvironment::Get ();
 	
@@ -438,6 +456,7 @@
 		environment.SetValue ( MOAI_ENV_osBrand,			osBrand );
 		environment.SetValue ( MOAI_ENV_osVersion,			osVersion );
 		environment.SetValue ( MOAI_ENV_udid,				udid );
+		environment.SetValue ( MOAI_ENV_screenDpi,			screenDpi );
 
 		JNI_RELEASE_CSTRING ( jappName, appName );
 		JNI_RELEASE_CSTRING ( jappId, appId );
@@ -451,6 +470,7 @@
 		JNI_RELEASE_CSTRING ( josBrand, osBrand );
 		JNI_RELEASE_CSTRING ( josVersion, osVersion );
 		JNI_RELEASE_CSTRING ( judid, udid );		
+		JNI_RELEASE_CSTRING ( jscreenDpi, screenDpi )
 	}
 	
 	//----------------------------------------------------------------//
