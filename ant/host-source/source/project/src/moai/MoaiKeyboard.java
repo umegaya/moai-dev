@@ -23,7 +23,7 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.TextView;
 
 // These are necessary for the mKeyInTextView hack
-import android.widget.EditText;Ï
+import android.widget.EditText;
 import android.text.TextWatcher;
 import android.text.Editable;
 
@@ -91,7 +91,8 @@ public class MoaiKeyboard {
 		});
 		
 		mKeyInTextView.setRawInputType( EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_NORMAL );
-		mKeyInTextView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mKeyInTextView.setImeOptions( EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_EXTRACT_UI );
+//		mKeyInTextView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 		
 		mKeyInTextView.setOnEditorActionListener(new OnEditorActionListener() {
 		    @Override
@@ -147,7 +148,7 @@ public class MoaiKeyboard {
 		mInputMethodManager.showSoftInput ( mKeyInTextView, 0 );
 	}
 
-	public static void hideKeyboard () {	
+	public static boolean hideKeyboard () {
 		mKeyInTextView.setText ( "" );
 		mKeyInTextView.bringToFront ();
 		mContainer.invalidate ();
