@@ -605,3 +605,7 @@
 
 		AKUUpdate ();
 	}
+
+	extern "C" void Java_com_ziplinegames_moai_Moai_AKUYueTicker ( JNIEnv* env, jclass obj ) {
+		AKUYueTicker ();
+	}

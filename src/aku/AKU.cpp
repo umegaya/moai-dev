@@ -516,6 +516,15 @@ void AKUUpdate () {
 }
 
 //----------------------------------------------------------------//
+extern "C" {
+	extern void yue_tick_timer();
+}
+void AKUYueTicker () {
+
+	yue_tick_timer();
+}
+
+//----------------------------------------------------------------//
 void AKUSetArgv ( char **argv ) {
 
 	int i;

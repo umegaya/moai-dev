@@ -20,10 +20,13 @@ import android.util.DisplayMetrics;
 
 import java.lang.reflect.Method;
 import java.lang.Runtime;
+import java.lang.System;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //================================================================//
 // Moai
@@ -135,6 +138,7 @@ public class Moai {
 	private static Activity 				sActivity = null;
 	private static ApplicationState 		sApplicationState = ApplicationState.APPLICATION_UNINITIALIZED;
 	private static ArrayList < Class < ? >>	sAvailableClasses = new ArrayList < Class < ? >> ();
+	private static Timer					sTimer = null;
 		
 	public static final Object		sAkuLock = new Object ();
 
@@ -177,6 +181,7 @@ public class Moai {
 	protected static native void 	AKUSetWorkingDirectory 			( String path );
 	protected static native void 	AKUUntzInit			 			();
 	protected static native void 	AKUUpdate				 		();
+	protected static native void	AKUYueTicker					();
 
 	//----------------------------------------------------------------//
 	static {
@@ -348,6 +353,16 @@ public class Moai {
 			}
 		
 			AKUSetDeviceProperties ( appName, appId, appVersion, Build.CPU_ABI, Build.BRAND, Build.DEVICE, Build.MANUFACTURER, Build.MODEL, Build.PRODUCT, Runtime.getRuntime ().availableProcessors (), "Android", Build.VERSION.RELEASE, udid, screenDpi );
+
+			//initialize task to send timer event to yue.
+			sTimer = new Timer();
+			sTimer.schedule(new TimerTask() {
+				long mIntval = 0;
+				@Override
+				public void run() {
+					AKUYueTicker();
+				}
+			}, 100, 100);
 		}
 	}	
 
