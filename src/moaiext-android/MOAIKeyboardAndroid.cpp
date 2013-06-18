@@ -40,8 +40,8 @@ int MOAIKeyboardAndroid::_hideKeyboard ( lua_State* L ) {
 	if ( moai ) {
 		jmethodID hideSoftKeyboard = env->GetStaticMethodID ( moai, "hideKeyboard", "()V" );
 		if ( hideSoftKeyboard ) {
-			env->CallStaticBooleanMethod ( moai, hideSoftKeyboard ); 
-			return 1;
+			env->CallStaticVoidMethod ( moai, hideSoftKeyboard );
+			return 0;
 		}
 	}
 

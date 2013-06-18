@@ -229,7 +229,7 @@ void MOAITextDesigner::BuildLayout () {
 		}
 		
 		// if we overrun this->mHeight, then back up to the start of the current line
-/*		if ( this->mTokenRect.mYMax > this->mHeight ) {
+		if ( this->mTokenRect.mYMax > this->mHeight ) {
 			
 			this->mTextBox->mSprites.SetTop ( this->mLineSpriteID );
 			
@@ -247,7 +247,6 @@ void MOAITextDesigner::BuildLayout () {
 			
 			more = false;
 		}
-*/
 	}
 
 	this->Align ();

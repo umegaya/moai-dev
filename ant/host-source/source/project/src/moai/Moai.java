@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Locale;
 
 //================================================================//
 // Moai
@@ -167,7 +168,7 @@ public class Moai {
 	protected static native void	AKURunScript 					( String filename );
 	protected static native void	AKUSetConnectionType 			( long connectionType );
 	protected static native void 	AKUSetContext 					( int contextId );
-	protected static native void 	AKUSetDeviceProperties 			( String appName, String appId, String appVersion, String abi, String devBrand, String devName, String devManufacturer, String devModel, String devProduct, int numProcessors, String osBrand, String osVersion, String udid, String screenDpi );
+	protected static native void 	AKUSetDeviceProperties 			( String appName, String appId, String appVersion, String abi, String devBrand, String devName, String devManufacturer, String devModel, String devProduct, int numProcessors, String osBrand, String osVersion, String udid, String screenDpi, String languageCode, String countryCode );
 	protected static native void 	AKUSetDocumentDirectory 		( String path );
 	protected static native void 	AKUSetInputConfigurationName	( String name );
 	protected static native void 	AKUSetInputDevice		 		( int deviceId, String name );
@@ -351,8 +352,10 @@ public class Moai {
 			if ( screenDpi == null ) {
 				screenDpi = "UNKNOWN";
 			}
+			
+			Locale locale = Locale.getDefault();
 		
-			AKUSetDeviceProperties ( appName, appId, appVersion, Build.CPU_ABI, Build.BRAND, Build.DEVICE, Build.MANUFACTURER, Build.MODEL, Build.PRODUCT, Runtime.getRuntime ().availableProcessors (), "Android", Build.VERSION.RELEASE, udid, screenDpi );
+			AKUSetDeviceProperties ( appName, appId, appVersion, Build.CPU_ABI, Build.BRAND, Build.DEVICE, Build.MANUFACTURER, Build.MODEL, Build.PRODUCT, Runtime.getRuntime ().availableProcessors (), "Android", Build.VERSION.RELEASE, udid, screenDpi, locale.getLanguage(), locale.getCountry() );
 
 			//initialize task to send timer event to yue.
 			sTimer = new Timer();

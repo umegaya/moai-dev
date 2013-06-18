@@ -119,7 +119,16 @@ void AKUIphoneInit ( UIApplication* application ) {
 	//environment.SetValue ( MOAI_ENV_devPlatform,		[[ UIDevice currentDevice ].platform UTF8String ]);
 	environment.SetValue ( MOAI_ENV_documentDirectory,	[[ NSSearchPathForDirectoriesInDomains ( NSDocumentDirectory, NSUserDomainMask, YES ) objectAtIndex:0 ] UTF8String ]);
 	environment.SetValue ( MOAI_ENV_iosRetinaDisplay,	[[ UIScreen mainScreen ] scale ] == 2.0 );
-	environment.SetValue ( MOAI_ENV_languageCode,		[[[ NSLocale currentLocale ] objectForKey: NSLocaleLanguageCode ] UTF8String ]);
+	const char *language;
+	if ([[NSLocale preferredLanguages] count] > 0)
+	{
+		language = [[[NSLocale preferredLanguages] objectAtIndex:0] UTF8String];
+	}
+	else
+	{
+		language = [[[ NSLocale currentLocale ] objectForKey: NSLocaleLanguageCode ] UTF8String ];
+	}
+	environment.SetValue ( MOAI_ENV_languageCode,		language);
 	environment.SetValue ( MOAI_ENV_osBrand,			"iOS" );
 	environment.SetValue ( MOAI_ENV_osVersion,			[[ UIDevice currentDevice ].systemVersion UTF8String ]);
 	environment.SetValue ( MOAI_ENV_resourceDirectory,	[[[ NSBundle mainBundle ] resourcePath ] UTF8String ]);
