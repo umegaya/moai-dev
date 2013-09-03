@@ -111,10 +111,14 @@ private:
 
 	//----------------------------------------------------------------//
 	static int		_getText				( lua_State* L );
+	static int		_setText				( lua_State* L );
+	static int		_hideKeyboard			( lua_State* L );
 	static int		_showKeyboard			( lua_State* L );
 
 	//----------------------------------------------------------------//
 	void			ShowKeyboard			( cc8* text, int type, int returnKey, bool secure, int autocap, int appearance );
+	void			HideKeyboard			();
+	void			setText					( cc8* text);
 
 public:
 	

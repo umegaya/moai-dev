@@ -121,6 +121,30 @@ int MOAIKeyboardIOS::_showKeyboard ( lua_State* L ) {
 	return 0;
 }
 
+//----------------------------------------------------------------//
+/**	@name	hideKeyboard
+ */
+int MOAIKeyboardIOS::_hideKeyboard ( lua_State* L ) {
+	MOAILuaState state ( L );
+	
+	MOAIKeyboardIOS::Get ().HideKeyboard ();
+	
+	return 0;
+}
+
+//----------------------------------------------------------------//
+/**	@name	setText
+ */
+int MOAIKeyboardIOS::_setText ( lua_State* L ) {
+	MOAILuaState state ( L );
+	
+	cc8* text			= state.GetValue < cc8* >( 1, "" );
+	
+	MOAIKeyboardIOS::Get ().setText (text);
+	
+	return 0;
+}
+
 //================================================================//
 // MOAIKeyboardIOS
 //================================================================//
@@ -202,6 +226,8 @@ void MOAIKeyboardIOS::RegisterLuaClass ( MOAILuaState& state ) {
 		{ "getText",			_getText },
 		{ "setListener",		&MOAIGlobalEventSource::_setListener < MOAIKeyboardIOS > },
 		{ "showKeyboard",		_showKeyboard },
+		{ "hideKeyboard",		_hideKeyboard },
+		{ "setText",			_setText },
 		{ NULL, NULL }
 	};
 
@@ -235,3 +261,12 @@ void MOAIKeyboardIOS::ShowKeyboard ( cc8* text, int type, int returnKey, bool se
 
 	[ this->mTextField becomeFirstResponder ];
 }
+
+void MOAIKeyboardIOS::HideKeyboard () {
+	[this->mTextField resignFirstResponder];
+}
+
+void MOAIKeyboardIOS::setText ( cc8 *text ) {
+	[ this->mTextField setText:[ NSString stringWithUTF8String:text ]];
+}
+
